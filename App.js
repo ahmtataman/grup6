@@ -11,6 +11,7 @@ import Hints from './src/screens/Hints';
 import Profile from './src/screens/Profile';
 import HintsShow from './src/components/HintsShow';
 import HintCall from './src/components/HintCall';
+import Ready from './src/screens/Ready';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,11 @@ function App() {
         <Stack.Screen
           name="main"
           component={MainPage}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ready"
+          component={Ready}
           options={{headerShown: false}}
         />
         <Stack.Screen

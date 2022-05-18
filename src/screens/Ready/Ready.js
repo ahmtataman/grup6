@@ -11,15 +11,15 @@ import Logo from '../../../assets/images/hack1.png';
 import Logo2 from '../../../assets/images/binary-code.png';
 import auth from '@react-native-firebase/auth';
 
-const MainPage = ({navigation}) => {
+const Ready = ({navigation}) => {
   const {height} = useWindowDimensions();
-  const signOut = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'))
-      .then(() => navigation.navigate('signin'))
-      .catch(error => this.setState({errorMessage: error.message}));
-  };
+  //   const signOut = () => {
+  //     auth()
+  //       .signOut()
+  //       .then(() => console.log('User signed out!'))
+  //       .then(() => navigation.navigate('signin'))
+  //       .catch(error => this.setState({errorMessage: error.message}));
+  //   };
   return (
     <View style={styles.view}>
       <Text style={styles.texttitle}>SIBER KAHRAMAN</Text>
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainPage;
+export default Ready;

@@ -15,7 +15,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
-import Ahmet from './Ahmet';
+
 export default class Signup extends Component {
   constructor() {
     super();

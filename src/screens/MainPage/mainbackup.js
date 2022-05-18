@@ -12,14 +12,16 @@ import Logo2 from '../../../assets/images/binary-code.png';
 import auth from '@react-native-firebase/auth';
 
 const MainPage = ({navigation}) => {
-  const {height} = useWindowDimensions();
-  const signOut = () => {
-    auth()
+  signOut = () => {
+    firebase
+      .auth()
       .signOut()
-      .then(() => console.log('User signed out!'))
-      .then(() => navigation.navigate('signin'))
+      .then(() => {
+        this.props.navigation.navigate('Login');
+      })
       .catch(error => this.setState({errorMessage: error.message}));
   };
+  const {height} = useWindowDimensions();
   return (
     <View style={styles.view}>
       <Text style={styles.texttitle}>SIBER KAHRAMAN</Text>
@@ -63,7 +65,10 @@ const MainPage = ({navigation}) => {
           {},
         ]}
       />
-      <Pressable onPress={() => signOut()} style={styles.exit}>
+      <Pressable
+        onPress={() => navigation.navigate('signin')}
+        style={styles.exit}
+      >
         <Text style={styles.textexit}>ÇIKIŞ YAP</Text>
       </Pressable>
     </View>

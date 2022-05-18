@@ -32,7 +32,7 @@ export default class Login extends Component {
   };
   userLogin = () => {
     if (this.state.email === '' && this.state.password === '') {
-      Alert.alert('Enter details to signin!');
+      Alert.alert('Giriş yapmak için bilgileri giriniz!');
     } else {
       this.setState({
         isLoading: true,
@@ -48,7 +48,7 @@ export default class Login extends Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('main');
+          this.props.navigation.navigate('ready');
         })
         .catch(error => this.setState({errorMessage: error.message}));
     }
@@ -85,10 +85,7 @@ export default class Login extends Component {
           />
         </View>
 
-        <CustomButton
-          text="GİRİS YAP"
-          onPress={() => this.props.navigation.navigate('main')}
-        />
+        <CustomButton text="GİRİS YAP" onPress={() => this.userLogin()} />
         <TextButton
           text="ÜYE OL"
           onPress={() => this.props.navigation.navigate('signup')}

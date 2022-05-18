@@ -10,10 +10,12 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
+// import {RewindIcon} from 'react-native-heroicons/outline';
 import React, {useState} from 'react';
-import CustomButton2 from '../../components/CustomButton2/CustomButton2';
-import Hint from '../../../assets/images/hint.png';
+// import CustomButton2 from '../../components/CustomButton2/CustomButton2';
+// import Hint from '../../../assets/images/hint.png';
 import HintPage from '../../../assets/images/sticky-note.png';
+
 import BackButton from '../../../assets/images/back.png';
 
 const Hints = ({navigation: {navigate}}) => {
@@ -40,6 +42,9 @@ const Hints = ({navigation: {navigate}}) => {
   return (
     <View>
       <View style={styles.MainContainer}>
+        {/* <RewindIcon color="blue" size={42} /> */}
+        {/* <Image source={Ipuc} style={[styles.logo]} /> */}
+
         <TouchableOpacity
           style={[styles.backbutton]}
           onPress={() => navigate('start')}
@@ -47,12 +52,11 @@ const Hints = ({navigation: {navigate}}) => {
           <Image source={BackButton} style={[styles.backbutton]} />
         </TouchableOpacity>
         <View style={styles.hinter}>
-          <Text style={styles.title}>İPUÇLARI</Text>
-          <Text style={styles.title}>foto</Text>
-          {/* <Image source={Hint} style={[styles.logo]} /> */}
+          <Pressable onPress={'onPress'} style={styles.but}>
+            <Text style={styles.text}>İPUÇLARI</Text>
+          </Pressable>
         </View>
       </View>
-      {/* <ScrollView style={styles.scrollView}> */}
 
       <FlatList
         numColumns={3}
@@ -70,15 +74,27 @@ const Hints = ({navigation: {navigate}}) => {
           </TouchableOpacity>
         )}
       />
-
-      {/* </ScrollView> */}
-      {/* <Pressable onPress={() => navigate('start')} style={styles.exit}>
-        <Text style={styles.textexit}>GERİ GİT</Text>
-      </Pressable> */}
     </View>
   );
 };
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 15,
+    fontFamily: 'Anek',
+    color: 'white',
+    // shadowColor: 'black',
+    // textShadowOffset: { width: 0, height: 1 },
+    // textShadowRadius: 10,
+    // shadowOffset: 1,
+  },
+  but: {
+    // top: 50,
+    padding: 10,
+    backgroundColor: '#47A6D7',
+    width: '65%',
+    borderRadius: 25,
+    alignItems: 'center',
+  },
   backbutton: {
     // left: 20,
     // bottom: 410,
