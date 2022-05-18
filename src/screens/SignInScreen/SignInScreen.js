@@ -70,7 +70,7 @@ export default class Login extends Component {
         <Text style={styles.text2}>GIRIS YAP</Text>
         <View style={styles.container}>
           <TextInput
-            style={styles.inputStyle}
+            style={[styles.inputStyle, {borderBottomWidth: 0.2}]}
             placeholder="Email"
             value={this.state.email}
             onChangeText={val => this.updateInputVal(val, 'email')}
@@ -97,6 +97,11 @@ export default class Login extends Component {
   }
 }
 const styles = StyleSheet.create({
+  inputStyle: {
+    padding: 10,
+    // margin: 5,
+    // borderBottomWidth: 1,
+  },
   container: {
     top: 20,
     backgroundColor: 'white',

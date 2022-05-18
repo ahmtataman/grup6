@@ -100,7 +100,7 @@ export default class Signup extends Component {
           onChangeText={val => this.updateInputVal(val, 'displayName')}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle]}
           placeholder="E-Posta Adresin"
           value={this.state.email}
           onChangeText={val => this.updateInputVal(val, 'email')}
