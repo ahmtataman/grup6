@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
   },
   input: {},
   root: {
+    backgroundColor: '#F1F9FF',
     flex: 1,
     alignItems: 'center',
     padding: 20,

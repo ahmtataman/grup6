@@ -21,16 +21,13 @@ import ImagePicker from 'react-native-image-crop-picker';
 // import BottomSheet from 'reanimated-bottom-sheet'
 // import Animated from 'react-native-reanimated'
 
-const SignUpScreen = () => {
+const Call = () => {
   // console.log(ProfilePlaceHolder)
   const ImageUri = Image.resolveAssetSource(ProfilePlaceHolder).uri;
   const [image, setImage] = useState(ImageUri);
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
   const {height} = useWindowDimensions();
-  const onSignInPressed = () => {
-    console.warn('girdi');
-  };
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -64,8 +61,8 @@ const SignUpScreen = () => {
           style={{
             height: 400,
             width: 400,
-            top: -100,
-            right: 100,
+            top: -320,
+            right: 50,
             opacity: 0.3,
             position: 'absolute',
             // borderWidth: 0.5,
@@ -91,8 +88,8 @@ const SignUpScreen = () => {
                 height: 100,
                 width: 100,
                 position: 'absolute',
-                top: 190,
-                right: 130,
+                top: -80,
+                // right: 130,
                 // borderWidth: 5,
 
                 // shadowColor: '#202020',
@@ -103,26 +100,9 @@ const SignUpScreen = () => {
               }}
               imageStyle={{borderRadius: 1000}}
             />
-
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-              }}
-            />
-
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            />
           </View>
         </TouchableOpacity>
-        <Text style={styles.text2}>PROFIL</Text>
+        {/* <Text style={styles.text2}>PROFIL</Text> */}
       </View>
     </View>
   );
@@ -249,4 +229,4 @@ const styles = StyleSheet.create({
     // position: 'absolute',
   },
 });
-export default SignUpScreen;
+export default Call;

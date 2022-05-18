@@ -10,16 +10,20 @@ import {
   Pressable,
   Image,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 // import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import auth from '@react-native-firebase/auth';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
+import ImagePicker from 'react-native-image-crop-picker';
+import Call from './Call.js';
 
 export default class Signup extends Component {
   constructor() {
     super();
     this.State = {image2: null};
+    this.State = {imageProfile: null};
 
     this.state = {
       displayName: '',
@@ -28,9 +32,24 @@ export default class Signup extends Component {
       isLoading: false,
     };
   }
-  componentDidMount() {
-    this.setState({image2: Image.resolveAssetSource(ProfilePlaceHolder).uri});
-  }
+  // choosePhotoFromLibrary = () => {
+  //   ImagePicker.openPicker({
+  //     width: 300,
+  //     height: 300,
+  //     cropping: true,
+  //     compressImageQuality: 0.7,
+  //   }).then(imageProfile => {
+  //     console.log(imageProfile);
+  //     setImage(imageProfile.path);
+  //     this.bs.current.snapTo(1);
+  //   });
+  // };
+  // componentDidMount() {
+  //   this.setState({image2: Image.resolveAssetSource(ProfilePlaceHolder).uri});
+  //   this.setState({
+  //     imageProfile: Image.resolveAssetSource(ProfilePlaceHolder).uri,
+  //   });
+  // }
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;
@@ -57,7 +76,7 @@ export default class Signup extends Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('main');
+          this.props.navigation.navigate('signin');
         })
         .catch(error => this.setState({errorMessage: error.message}));
     }
@@ -72,37 +91,23 @@ export default class Signup extends Component {
     }
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={{
-            uri: this.state.image2,
-          }}
-          style={{
-            height: 400,
-            width: 400,
-            top: -100,
-            right: 100,
-            opacity: 0.3,
-            position: 'absolute',
-            // borderWidth: 0.5,
-            // borderRadius: 500,
-          }}
-          imageStyle={{borderRadius: 1000}}
-        />
+        <Call />
+        <Text style={styles.title}>KAYIT </Text>
         <TextInput
           style={styles.inputStyle}
-          placeholder="Name"
+          placeholder="İsmin"
           value={this.state.displayName}
           onChangeText={val => this.updateInputVal(val, 'displayName')}
         />
         <TextInput
           style={styles.inputStyle}
-          placeholder="Email"
+          placeholder="E-Posta Adresin"
           value={this.state.email}
           onChangeText={val => this.updateInputVal(val, 'email')}
         />
         <TextInput
           style={styles.inputStyle}
-          placeholder="Password"
+          placeholder="Şifren"
           value={this.state.password}
           onChangeText={val => this.updateInputVal(val, 'password')}
           maxLength={15}
@@ -119,12 +124,12 @@ export default class Signup extends Component {
           onPress={() => this.registerUser()}
         /> */}
         <Pressable
-          onPress={() => this.props.navigation.navigate('Login')}
+          onPress={() => this.registerUser()}
           style={styles.container2}
         >
           <Text style={styles.text}>KAYIT OL</Text>
         </Pressable>
-        <Ahmet kutay={this.state.password} />
+
         <Text
           style={styles.loginText}
           onPress={() => this.props.navigation.navigate('signin')}
@@ -136,6 +141,13 @@ export default class Signup extends Component {
   }
 }
 const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    fontFamily: 'Anek',
+    fontSize: 25,
+    color: '#47A6D7',
+    padding: 10,
+  },
   container2: {
     top: 50,
     padding: 15,
@@ -169,19 +181,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     padding: 35,
-    backgroundColor: '#fff',
+    backgroundColor: '#F1F9FF',
   },
   inputStyle: {
+    borderRadius: 10,
+    backgroundColor: 'white',
     width: '100%',
     marginBottom: 15,
     paddingBottom: 15,
     alignSelf: 'center',
     borderColor: '#ccc',
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
   },
   loginText: {
     color: '#3740FE',
-    top: 60,
+    top: 80,
     // marginTop: 50,
     textAlign: 'center',
   },

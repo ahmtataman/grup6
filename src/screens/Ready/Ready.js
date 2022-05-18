@@ -23,53 +23,48 @@ const Ready = ({navigation}) => {
   return (
     <View style={styles.view}>
       <Text style={styles.texttitle}>SIBER KAHRAMAN</Text>
-      <Image source={Logo} style={[styles.logo, {height: height * 0.25}]} />
-      <Pressable
-        onPress={() => navigation.navigate('start')}
-        style={styles.container}
-      >
-        <Text style={styles.text}>BAŞLA</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate('main')}
-        style={styles.container}
-      >
-        <Text style={styles.text1}>BAŞARIMLARIM</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate('main')}
-        style={styles.container}
-      >
-        <Text style={styles.text2}>LİDER TAHTASI</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate('profile')}
-        style={styles.container}
-      >
-        <Text style={styles.text3}>PROFİL</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate('main')}
-        style={styles.container}
-      >
-        <Text style={styles.text4}>ANALİZLERİM</Text>
-      </Pressable>
+      <Image source={Logo} style={[styles.logo, {height: height * 0.32}]} />
+      <View style={styles.containertext}>
+        <Text style={styles.maintext}>
+          Merhaba ben Siber Kahraman! Siber Riskler ve Tehditler ile kahramanca
+          mücadele ediyorum. Eğer sen de tehditler ile savaşmak istiyorsan,
+          hazırladığım konularda yeterli bilgiye sahip olduğunu kanıtla ve sen
+          de bir Siber Kahraman ol!
+        </Text>
+      </View>
       <Image
         source={Logo2}
         style={[
-          styles.logo,
+          styles.logo2,
           {height: height * 0.25},
           {position: 'absolute', top: 600, left: 200, opacity: 0.5},
           {},
         ]}
       />
-      <Pressable onPress={() => signOut()} style={styles.exit}>
-        <Text style={styles.textexit}>ÇIKIŞ YAP</Text>
+      <Pressable
+        onPress={() => navigation.navigate('main')}
+        style={styles.exit}
+      >
+        <Text style={styles.textexit}>HAZIRIM!</Text>
       </Pressable>
     </View>
   );
 };
 const styles = StyleSheet.create({
+  containertext: {
+    // top: 50,
+    padding: 15,
+    backgroundColor: 'white',
+    width: '80%',
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  maintext: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 20,
+    fontFamily: 'Exo2-VariableFont_wght',
+  },
   texttitle: {
     // top: -10,
 
@@ -79,6 +74,12 @@ const styles = StyleSheet.create({
     // left: 45,
   },
   logo: {
+    // top: 10,
+    maxWidth: 300,
+    maxHeight: 300,
+    resizeMode: 'contain',
+  },
+  logo2: {
     top: 10,
     maxWidth: 300,
     maxHeight: 300,
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
   },
   view: {
     // flexDirection: 'column',
+    top: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
