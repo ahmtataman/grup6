@@ -7,19 +7,17 @@ import {
   useWindowDimensions,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import TextButton from '../../components/TextButton';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import ImagePicker from 'react-native-image-crop-picker';
-// import firestore from '@react-native-firebase/firestore'
-// import { utils } from '@react-native-firebase/app'
-// import storage from '@react-native-firebase/storage'
-// import BottomSheet from 'reanimated-bottom-sheet'
-// import Animated from 'react-native-reanimated'
+import storage from '@react-native-firebase/storage';
+import {utils} from '@react-native-firebase/app';
+import {Button} from 'react-native-paper';
 
 const SignUpScreen = () => {
   // console.log(ProfilePlaceHolder)
@@ -38,24 +36,32 @@ const SignUpScreen = () => {
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
-    }).then(image => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
-    });
+    })
+      .then(image => {
+        console.log(image);
+        setImage(image.path);
+        this.bs.current.snapTo(1);
+      })
+      
   };
-
+  const uploadImage = async () => {
+    // }
+    // console.log(user);
+    const URL = image;
+    let filename = 'test';
+    console.log(URL);
+    try {
+      await storage()
+        .ref(filename)
+        .putFile(URL);
+      Alert.alert('Fotoğraf Yüklendi!');
+    } catch (e) {
+      console.log('error upload');
+    }
+  };
   // console.log(ImageUri)
   return (
     <View style={styles.container}>
-      {/* <Button
-        onPress={async () => {
-          // path to existing file on filesystem
-          const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`
-          // uploads file
-          await reference.putFile(pathToFile)
-        }}
-      /> */}
       <View style={{alignItems: 'center'}}>
         <ImageBackground
           source={{
@@ -93,13 +99,6 @@ const SignUpScreen = () => {
                 position: 'absolute',
                 top: 190,
                 right: 130,
-                // borderWidth: 5,
-
-                // shadowColor: '#202020',
-                // shadowOffset: { width: 5, height: 5 },
-                // shadowRadius: 5,
-
-                // borderRadius: 500,
               }}
               imageStyle={{borderRadius: 1000}}
             />
@@ -120,6 +119,7 @@ const SignUpScreen = () => {
                 alignItems: 'center',
               }}
             />
+            <CustomButton text="GİRİS YAP" onPress={uploadImage} />
           </View>
         </TouchableOpacity>
         <Text style={styles.text2}>PROFIL</Text>

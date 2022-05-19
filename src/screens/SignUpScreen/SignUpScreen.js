@@ -14,24 +14,120 @@ import {
 } from 'react-native';
 // import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import ImagePicker from 'react-native-image-crop-picker';
 import Call from './Call.js';
 
 export default class Signup extends Component {
-  constructor() {
-    super();
-    this.State = {image2: null};
-    this.State = {imageProfile: null};
+  constructor(props) {
+    super(props);
+    // this.State = {image2: null};
+    // this.State = {imageProfile: null};
+    // this.State = {URL: null};
+    // this.State = {filename: null};
+    // this.getUser();
+    // state = {
+    // this.App();
+    // };
+
+    // this.subscriber = firestore()
+    //   .collection('person')
+    //   .doc('Elv2gXlGcDu9PpY7vEE4')
+    //   .onSnapshot(doc => {
+    //     this.setState({
+    //       user: {
+    //         name: doc.data().name,
+    //         mail: doc.data().mail,
+    //       },
+    //     });
+    //   });
+    // firestore()
+    //   .collection('person')
+    //   .get()
+    //   .then(querySnapshot => {
+    //     console.log('Total users: ', querySnapshot.size);
+
+    //     querySnapshot.forEach(documentSnapshot => {
+    //       console.log(
+    //         'User ID: ',
+    //         documentSnapshot.id,
+    //         documentSnapshot.data(),
+    //       );
+    //     });
+    //   });
 
     this.state = {
+      userAuthId: '',
       displayName: '',
       email: '',
       password: '',
       isLoading: false,
+      data: 'ahmet',
+      user: {
+        name: '',
+        mail: '',
+        AuthId: '',
+      },
     };
   }
+  // App() {
+  //   // Set an initializing state whilst Firebase connects
+  //   const [initializing, setInitializing] = useState(true);
+  //   const [user, setUser] = useState();
+
+  //   // Handle user state changes
+  //   function onAuthStateChanged(user) {
+  //     setUser(user);
+  //     if (initializing) {
+  //       setInitializing(false);
+  //     }
+  //   }
+
+  //   useEffect(() => {
+  //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //     return subscriber; // unsubscribe on unmount
+  //   }, []);
+  //   if (!user) {
+  //     return (
+  //       <View>
+  //         <Text>Login</Text>
+  //       </View>
+  //     );
+  //   }
+  //   if (initializing) {
+  //     return null;
+  //   }
+  //   return (
+  //     <View>
+  //       <Text>Welcome {user.email}</Text>
+  //     </View>
+  //   );
+  // }
+  addUser = async () => {
+    firestore()
+      .collection('person')
+      .doc(this.state.userAuthId)
+      .set({
+        name: this.state.displayName,
+        mail: this.state.email,
+        AuthID: this.state.userAuthId,
+        // yas: ,
+      });
+    // console.log(res.user.uid);
+  };
+  // getUser = async () => {
+  //   const userDocument = await firestore()
+  //     .collection('person')
+  //     .doc('Elv2gXlGcDu9PpY7vEE4')
+  //     .get();
+  //   console.log(userDocument);
+  // };
+  // usersCollection = () => {
+  //   const data = firestore().collection('person');
+  //   console.log(data);
+  // };
   // choosePhotoFromLibrary = () => {
   //   ImagePicker.openPicker({
   //     width: 300,
@@ -68,19 +164,40 @@ export default class Signup extends Component {
         .then(res => {
           res.user.updateProfile({
             displayName: this.state.displayName,
+            // userAuthId: this.state.res.user.uid,
           });
+
+          // console.log(userAuthId);
+          // (this.userAuthId = this.state.res.user.id),
+          // console.log(res.user.uid);
+          this.setState({userAuthId: res.user.uid});
+          // console.log(userAuthId);
+          // console.log(res);
+          console.log('res', res);
           console.log('Kayıt Başarılı!');
-          this.setState({
-            isLoading: false,
-            displayName: '',
-            email: '',
-            password: '',
-          });
+
+          // this.setState({
+          //   isLoading: false,
+          //   displayName: '',
+          //   email: '',
+          //   password: '',
+          // });
           this.props.navigation.navigate('signin');
         })
+        .then(() => this.addUser())
+
         .catch(error => this.setState({errorMessage: error.message}));
     }
   };
+  // getdata = () => {
+  //   const data = firestore()
+  //     .collection('person')
+  //     // .where('name', '==', this.state.data)
+  //     .get();
+  //   // this.setState({data: data});
+  //   console.log(data);
+  // };
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -89,6 +206,7 @@ export default class Signup extends Component {
         </View>
       );
     }
+
     return (
       <View style={styles.container}>
         <Call />

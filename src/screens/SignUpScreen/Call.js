@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
@@ -17,7 +18,7 @@ import TextButton from '../../components/TextButton';
 import ImagePicker from 'react-native-image-crop-picker';
 // import firestore from '@react-native-firebase/firestore'
 // import { utils } from '@react-native-firebase/app'
-// import storage from '@react-native-firebase/storage'
+import storage from '@react-native-firebase/storage';
 // import BottomSheet from 'reanimated-bottom-sheet'
 // import Animated from 'react-native-reanimated'
 
@@ -25,6 +26,8 @@ const Call = () => {
   // console.log(ProfilePlaceHolder)
   const ImageUri = Image.resolveAssetSource(ProfilePlaceHolder).uri;
   const [image, setImage] = useState(ImageUri);
+  const [imageUrl, setImageUrl] = useState('');
+
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
   const {height} = useWindowDimensions();
@@ -36,12 +39,28 @@ const Call = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
+      // console.log(image);
       setImage(image.path);
-      this.bs.current.snapTo(1);
+      uploadImage(image.path);
     });
   };
+  const uploadImage = async test => {
+    // }
+    // console.log(user);
+    // const URL = image;
+    console.log(test);
 
+    let filename = 'test';
+    // console.log(URL);
+    try {
+      await storage()
+        .ref(filename)
+        .putFile(test);
+      Alert.alert('Fotoğraf Yüklendi!');
+    } catch (e) {
+      console.log(e);
+    }
+  };
   // console.log(ImageUri)
   return (
     <View style={styles.container}>

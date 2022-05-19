@@ -99,6 +99,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   inputStyle: {
     padding: 10,
+    paddingBottom: 10,
     // margin: 5,
     // borderBottomWidth: 1,
   },
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginVertical: 5,
+    elevation: 0.5,
   },
   text: {
     top: -10,
