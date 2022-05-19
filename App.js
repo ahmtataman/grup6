@@ -1,6 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
+import LeaderBoard from './src/screens/LeaderBoard';
+import Analyze from './src/screens/Analyze';
+import Achivement from './src/screens/Achivement';
 import SignUpScreen from './src/screens/SignUpScreen';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
@@ -58,6 +61,21 @@ function App() {
         <Stack.Screen
           name="hintshow"
           component={HintsShow}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="lider"
+          component={LeaderBoard}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="achive"
+          component={Achivement}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="analiz"
+          component={Analyze}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

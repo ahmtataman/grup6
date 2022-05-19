@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Logo from '../../../assets/images/hack1.png';
+import King from '../../../assets/images/king.png';
 import Logo2 from '../../../assets/images/binary-code.png';
 import auth from '@react-native-firebase/auth';
 
@@ -43,15 +44,29 @@ const MainPage = ({navigation}) => {
         <Text style={styles.text}>BAŞLA</Text>
       </Pressable>
       <Pressable
-        onPress={() => navigation.navigate('main')}
+        onPress={() => navigation.navigate('achive')}
         style={styles.container}
       >
         <Text style={styles.text1}>BAŞARIMLARIM</Text>
       </Pressable>
       <Pressable
-        onPress={() => navigation.navigate('main')}
+        onPress={() => navigation.navigate('lider')}
         style={styles.container}
       >
+        <Image
+          source={King}
+          style={{
+            bottom: 20,
+            left: -24,
+            height: 50,
+            width: 50,
+            transform: [{rotate: '-40deg'}],
+            position: 'absolute',
+            // elevation: 10,
+            // borderRadius: 20,
+            // rotation: -35,
+          }}
+        />
         <Text style={styles.text2}>LİDER TAHTASI</Text>
       </Pressable>
       <Pressable
@@ -61,7 +76,7 @@ const MainPage = ({navigation}) => {
         <Text style={styles.text3}>PROFİL</Text>
       </Pressable>
       <Pressable
-        onPress={() => navigation.navigate('main')}
+        onPress={() => navigation.navigate('analiz')}
         style={styles.container}
       >
         <Text style={styles.text4}>ANALİZLERİM</Text>

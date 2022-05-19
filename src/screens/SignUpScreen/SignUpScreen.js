@@ -318,16 +318,7 @@ export default class Signup extends Component {
           maxLength={15}
           secureTextEntry={true}
         />
-        {/* <CustomButton
-          style={styles.button}
-          text="KAYIT OL"
-          onPress={() => this.registerUser()}
-        /> */}
-        {/* <Button
-          style={{flex: 1}}
-          title="Signup"
-          onPress={() => this.registerUser()}
-        /> */}
+
         <Pressable
           onPress={() => this.registerUser()}
           style={styles.container2}
@@ -396,6 +387,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     alignSelf: 'center',
     borderColor: '#ccc',
+    paddingLeft: 15,
     // borderBottomWidth: 1,
   },
   loginText: {

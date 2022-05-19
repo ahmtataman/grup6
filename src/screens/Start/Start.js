@@ -49,7 +49,7 @@ const Start = ({navigation}) => {
       <View
         style={{
           top: 30,
-          backgroundColor: 'white',
+          backgroundColor: '#47A6D7',
           width: '70%',
           height: '9%',
           borderColor: '#e8e8e8',
@@ -91,8 +91,10 @@ const Start = ({navigation}) => {
               position: 'absolute',
               fontSize: 20,
               right: 20,
-              top: 5,
+              top: 3,
               paddingHorizontal: 10,
+              color: '#EFF9FF',
+              opacity: 0.7,
             }}
           >
             Merhaba
@@ -107,8 +109,9 @@ const Start = ({navigation}) => {
               position: 'absolute',
               color: 'black',
               fontSize: 30,
-              right: 10,
-              top: 25,
+              right: 11,
+              top: 23,
+              color: 'white',
             }}
           >
             {name}

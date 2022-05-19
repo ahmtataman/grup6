@@ -28,15 +28,13 @@ const Hints = ({navigation: {navigate}}) => {
       title: 'Hassas verileri girmenizi isteyen şüpheli e-postaları açmayın!',
     },
     {title: 'Hesaplarınız için güçlü parolalar seçiniz!'},
-    {title: 'deneme2'},
-    {title: 'deneme1'},
-    {title: 'deneme2'},
-    {title: 'deneme1'},
-    {title: 'deneme2'},
-    {title: 'deneme1'},
-    {title: 'deneme2'},
-    {title: 'deneme2'},
-    {title: 'deneme1'},
+    {title: 'Verilerinizi mutlaka yedekleyin!'},
+    {title: 'Şifrelerinizi kimse ile paylaşmayın'},
+    {title: 'Kaynağını bilmediğiniz e-postaları açmayınız'},
+    {title: 'Sosyal ağlarda kişisel bilgileri paylaşmayın'},
+    {title: 'Yüklediğiniz fotoğraflarda konum bilgisi olmamasına dikkat edin'},
+    {title: '"Şifremi Hatırla" butonuna basmasanız daha iyi olur'},
+    {title: 'Kaynağından emin olmadıkça verilen linklere tıklamayınız'},
   ]);
 
   return (

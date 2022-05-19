@@ -16,7 +16,7 @@ import Hint from '../../../assets/images/hint.png';
 import HintPage from '../../../assets/images/sticky-note.png';
 import BackButton from '../../../assets/images/back.png';
 
-const Hints = ({route: {params}}) => {
+const Hints = ({route: {params}, navigation}) => {
   const {height} = useWindowDimensions();
   // const [textSelect, setTextSelect] = useState([
   //   {title: 'deneme1'},
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     padding: 10,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   page: {
     top: -50,
