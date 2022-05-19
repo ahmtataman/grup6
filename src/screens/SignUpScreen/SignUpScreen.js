@@ -18,7 +18,8 @@ import firestore from '@react-native-firebase/firestore';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import ImagePicker from 'react-native-image-crop-picker';
-import Call from './Call.js';
+// import Call from './Call.js';
+import storage from '@react-native-firebase/storage';
 
 export default class Signup extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class Signup extends Component {
     //   });
 
     this.state = {
+      image2: null,
       userAuthId: '',
       displayName: '',
       email: '',
@@ -128,24 +130,41 @@ export default class Signup extends Component {
   //   const data = firestore().collection('person');
   //   console.log(data);
   // };
+  choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(imageProfile => {
+      console.log(imageProfile.path);
+      this.setState({image2: imageProfile.path});
+      // this.setState({image2: this.state.imageProfile.path});
+      console.log(this.state.image2);
+    });
+  };
   // choosePhotoFromLibrary = () => {
-  //   ImagePicker.openPicker({
-  //     width: 300,
-  //     height: 300,
-  //     cropping: true,
-  //     compressImageQuality: 0.7,
-  //   }).then(imageProfile => {
-  //     console.log(imageProfile);
-  //     setImage(imageProfile.path);
-  //     this.bs.current.snapTo(1);
-  //   });
+  //   ImagePicker.openPicker(
+  //     {width: 300, height: 300, cropping: true, compressImageQuality: 0.7},
+  //     res => {
+  //       if (res.didCancel) {
+  //         console.log('User cancelled!');
+  //       } else if (res.error) {
+  //         console.log('Error', res.error);
+  //       } else {
+  //         this.setState({
+  //           image2: {uri: res.path},
+  //         });
+  //       }
+  //     },
+  //   );
   // };
-  // componentDidMount() {
-  //   this.setState({image2: Image.resolveAssetSource(ProfilePlaceHolder).uri});
-  //   this.setState({
-  //     imageProfile: Image.resolveAssetSource(ProfilePlaceHolder).uri,
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({image2: Image.resolveAssetSource(ProfilePlaceHolder).uri});
+    this.setState({
+      imageProfile: Image.resolveAssetSource(ProfilePlaceHolder).uri,
+    });
+  }
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;
@@ -185,10 +204,26 @@ export default class Signup extends Component {
           this.props.navigation.navigate('signin');
         })
         .then(() => this.addUser())
+        .then(() => this.uploadImage())
 
         .catch(error => this.setState({errorMessage: error.message}));
     }
   };
+  uploadImage = async test => {
+    console.log(test);
+
+    let filename = 'test';
+
+    try {
+      await storage()
+        .ref(this.state.userAuthId)
+        .putFile(this.state.image2);
+      Alert.alert('Fotoğraf Yüklendi!');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // getdata = () => {
   //   const data = firestore()
   //     .collection('person')
@@ -209,7 +244,59 @@ export default class Signup extends Component {
 
     return (
       <View style={styles.container}>
-        <Call />
+        <ImageBackground
+          source={{
+            uri: this.state.image2,
+          }}
+          style={{
+            height: 400,
+            width: 400,
+            top: -130,
+            right: 50,
+            opacity: 0.3,
+            position: 'absolute',
+            // borderWidth: 0.5,
+            // borderRadius: 500,
+          }}
+          imageStyle={{borderRadius: 1000}}
+        />
+        <TouchableOpacity onPress={() => this.choosePhotoFromLibrary()}>
+          <View
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: 15,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ImageBackground
+              source={{
+                uri: this.state.image2,
+              }}
+              style={{
+                height: 100,
+                width: 100,
+                // alignItems: 'center',
+                position: 'absolute',
+                top: -40,
+                left: 108,
+                // borderEndWidth: 5,
+                // borderRadius: 50,
+                // borderEndWidth: 20,
+                // borderWidth: 5,
+                // borderBottomWidth: 100,
+
+                elevation: 10,
+                // borderBottomEndRadius: 100,
+                borderRadius: 100,
+                // borderBottomRightRadius: 100,
+              }}
+              imageStyle={{borderRadius: 1000}}
+            />
+          </View>
+        </TouchableOpacity>
+        {/* <Call /> */}
         <Text style={styles.title}>KAYIT </Text>
         <TextInput
           style={styles.inputStyle}

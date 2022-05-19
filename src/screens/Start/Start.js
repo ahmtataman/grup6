@@ -1,10 +1,120 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
+
 import CustomButton2 from '../../components/CustomButton2/CustomButton2';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
+import React, {useState, useEffect} from 'react';
 
 const Start = ({navigation}) => {
+  const ImageUri = Image.resolveAssetSource(ProfilePlaceHolder).uri;
+  const [image, setImage] = useState(ImageUri);
+  var user = auth().currentUser;
+  var name, email, photoUrl, uid, emailVerified;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    photoUrl = user.photoURL;
+    emailVerified = user.emailVerified;
+    uid = user.uid;
+  }
+
+  console.log(name);
+  // console.log(uid);
+
+  useEffect(() => {
+    const urlGetFunc = async () => {
+      const urlDownload = await storage()
+        .ref(uid)
+        .getDownloadURL();
+      // console.log(urlDownload);
+
+      setImage(urlDownload);
+    };
+
+    urlGetFunc();
+  }, []);
   return (
     <View style={styles.view}>
+      <View
+        style={{
+          top: 30,
+          backgroundColor: 'white',
+          width: '70%',
+          height: '9%',
+          borderColor: '#e8e8e8',
+          borderWidth: 0.5,
+          borderRadius: 60,
+          paddingHorizontal: 10,
+          marginVertical: 5,
+          elevation: 10,
+          position: 'absolute',
+          left: -50,
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+          <ImageBackground
+            source={{
+              uri: image,
+            }}
+            style={{
+              height: 80,
+              width: 80,
+              position: 'absolute',
+              elevation: 15,
+              borderRadius: 30,
+              right: 120,
+              top: -5,
+              borderColor: 'black',
+              // borderWidth: 1,
+              // backgroundColor: 'black',
+            }}
+            imageStyle={{borderRadius: 1000}}
+          />
+
+          <Text
+            style={{
+              // elevation: 10,
+              // borderRadius: 50,
+              // backgroundColor: 'white',
+              fontFamily: 'Exo2-VariableFont_wght',
+              position: 'absolute',
+              fontSize: 20,
+              right: 20,
+              top: 5,
+              paddingHorizontal: 10,
+            }}
+          >
+            Merhaba
+          </Text>
+          <Text
+            style={{
+              paddingHorizontal: 10,
+              // elevation: 1,
+              // borderRadius: 10,
+              // backgroundColor: 'white',
+              fontFamily: 'Exo2-VariableFont_wght',
+              position: 'absolute',
+              color: 'black',
+              fontSize: 30,
+              right: 10,
+              top: 25,
+            }}
+          >
+            {name}
+          </Text>
+        </TouchableOpacity>
+      </View>
       <Pressable
         onPress={() => navigation.navigate('main')}
         style={styles.container}
@@ -37,7 +147,10 @@ const styles = StyleSheet.create({
   view: {
     // flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    backgroundColor: '#F1F9FF',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
   },
   textexit: {
     left: 10,

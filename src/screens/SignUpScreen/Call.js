@@ -14,13 +14,9 @@ import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import TextButton from '../../components/TextButton';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import ImagePicker from 'react-native-image-crop-picker';
-// import firestore from '@react-native-firebase/firestore'
-// import { utils } from '@react-native-firebase/app'
 import storage from '@react-native-firebase/storage';
-// import BottomSheet from 'reanimated-bottom-sheet'
-// import Animated from 'react-native-reanimated'
+import auth from '@react-native-firebase/auth';
 
 const Call = () => {
   // console.log(ProfilePlaceHolder)

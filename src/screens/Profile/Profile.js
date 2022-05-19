@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -18,38 +19,60 @@ import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
 import {Button} from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-const SignUpScreen = () => {
+const Profile = ({navigation}) => {
   // console.log(ProfilePlaceHolder)
   const ImageUri = Image.resolveAssetSource(ProfilePlaceHolder).uri;
   const [image, setImage] = useState(ImageUri);
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
   const {height} = useWindowDimensions();
-  const onSignInPressed = () => {
-    console.warn('girdi');
-  };
 
+  var user = auth().currentUser;
+  var name, email, uid, emailVerified;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    emailVerified = user.emailVerified;
+    uid = user.uid;
+  } else {
+    console.log('no user');
+  }
+  useEffect(() => {
+    const urlGetFunc = async () => {
+      const urlDownload = await storage()
+        .ref(uid)
+        .getDownloadURL();
+      console.log(urlDownload);
+      setImage(urlDownload);
+    };
+
+    urlGetFunc();
+  }, []);
+
+  // console.log(name);
+  // setImage(uid);
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
-    })
-      .then(image => {
-        console.log(image);
-        setImage(image.path);
-        this.bs.current.snapTo(1);
-      })
-      
+    }).then(image => {
+      // console.log(image);
+      setImage(image.path);
+      this.bs.current.snapTo(1);
+    });
   };
   const uploadImage = async () => {
     // }
     // console.log(user);
     const URL = image;
     let filename = 'test';
-    console.log(URL);
+    // console.log(URL);
     try {
       await storage()
         .ref(filename)
@@ -59,76 +82,176 @@ const SignUpScreen = () => {
       console.log('error upload');
     }
   };
+
   // console.log(ImageUri)
   return (
-    <View style={styles.container}>
-      <View style={{alignItems: 'center'}}>
-        <ImageBackground
-          source={{
-            uri: image,
-          }}
-          style={{
-            height: 400,
-            width: 400,
-            top: -100,
-            right: 100,
-            opacity: 0.3,
-            position: 'absolute',
-            // borderWidth: 0.5,
-            // borderRadius: 500,
-          }}
-          imageStyle={{borderRadius: 1000}}
-        />
-        <TouchableOpacity onPress={choosePhotoFromLibrary}>
-          <View
-            style={{
-              height: 100,
-              width: 100,
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
+    <View style={{backgroundColor: '#F1F9FF'}}>
+      <View style={styles.container}>
+        <View style={{alignItems: 'center'}}>
+          <ImageBackground
+            source={{
+              uri: image,
             }}
-          >
-            <ImageBackground
-              source={{
-                uri: image,
-              }}
+            style={{
+              height: 400,
+              width: 400,
+              top: -100,
+              right: 100,
+              opacity: 0.3,
+              position: 'absolute',
+              // borderWidth: 0.5,
+              // borderRadius: 500,
+            }}
+            imageStyle={{borderRadius: 1000}}
+          />
+          <TouchableOpacity onPress={choosePhotoFromLibrary}>
+            <View
               style={{
                 height: 100,
                 width: 100,
-                position: 'absolute',
-                top: 190,
-                right: 130,
-              }}
-              imageStyle={{borderRadius: 1000}}
-            />
-
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-              }}
-            />
-
-            <View
-              style={{
-                flex: 1,
+                borderRadius: 15,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
+            >
+              <ImageBackground
+                source={{
+                  uri: image,
+                }}
+                style={{
+                  height: 100,
+                  width: 100,
+                  position: 'absolute',
+                  top: 190,
+                  right: 130,
+                  elevation: 10,
+                  borderRadius: 50,
+                }}
+                imageStyle={{borderRadius: 1000}}
+              />
+
+              {/* <CustomButton text="GİRİS YAP" onPress={'urlGetFunc'} /> */}
+            </View>
+          </TouchableOpacity>
+
+          <Text style={styles.text2}>PROFIL</Text>
+          <View style={styles.back}>
+            <Text style={styles.profiletext2}>Ad</Text>
+            <View
+              style={{
+                top: 10,
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                opacity: 0.3,
+              }}
             />
-            <CustomButton text="GİRİS YAP" onPress={uploadImage} />
+            <Text style={styles.profiletext}>{name}</Text>
+            <Text style={styles.profiletext2}>E-posta Adresi</Text>
+            <View
+              style={{
+                top: 10,
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                opacity: 0.3,
+                // width: '90%',
+              }}
+            />
+            <Text style={styles.profiletext}>{email}</Text>
           </View>
-        </TouchableOpacity>
-        <Text style={styles.text2}>PROFIL</Text>
+        </View>
+
+        <Pressable
+          onPress={() => navigation.navigate('main')}
+          style={styles.exit}
+        >
+          <Text style={styles.textexit}>ANA MENÜ</Text>
+        </Pressable>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  exit: {
+    shadowColor: 'black',
+    shadowOpacity: 0.8,
+    elevation: 6,
+    backgroundColor: '#0000',
+    shadowRadius: 15,
+    shadowOffset: {width: 56, height: 13},
+    borderWidth: 0,
+    borderRadius: 0,
+    left: 125,
+
+    top: 300,
+
+    padding: 10,
+    marginHorizontal: 10,
+    marginVertical: 20,
+    backgroundColor: '#47A6D7',
+    width: '30%',
+    borderRadius: 25,
+  },
+  textexit: {
+    left: 10,
+    fontSize: 15,
+    fontFamily: 'Exo2-VariableFont_wght',
+    color: 'white',
+  },
+  text3: {
+    top: 210,
+    right: 130,
+    fontFamily: 'Anek',
+    fontSize: 15,
+    color: '#67b2d9',
+  },
+  back: {
+    // position: '',
+    top: 220,
+    backgroundColor: 'white',
+    width: '90%',
+    borderColor: '#e8e8e8',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    elevation: 0.5,
+    paddingBottom: 20,
+  },
+  profiletext: {
+    // position: 'absolute',
+    // alignItems: 'center',
+    top: 10,
+    // right: 30,
+    fontFamily: 'Anek',
+    fontSize: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    // color: '#67b2d9',
+  },
+  profiletext2: {
+    // position: 'absolute',
+    // alignItems: 'center',
+    top: 10,
+    // right: 30,
+    fontFamily: 'Anek',
+    fontSize: 15,
+    color: '#67b2d9',
+  },
+  container: {
+    // backgroundColor: '#F1F9FF',
+  },
+  container2: {
+    top: 20,
+    backgroundColor: 'white',
+    width: '90%',
+    borderColor: '#e8e8e8',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    elevation: 0.5,
+  },
   logo: {
     // padding: 10,
     maxWidth: 400,
@@ -197,21 +320,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  action: {
-    flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2',
-    paddingBottom: 5,
-  },
-  actionError: {
-    flexDirection: 'row',
-    marginTop: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FF0000',
-    paddingBottom: 5,
-  },
+
   textInput: {
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
@@ -249,4 +358,4 @@ const styles = StyleSheet.create({
     // position: 'absolute',
   },
 });
-export default SignUpScreen;
+export default Profile;

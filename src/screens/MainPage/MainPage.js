@@ -6,7 +6,7 @@ import {
   Image,
   useWindowDimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Logo from '../../../assets/images/hack1.png';
 import Logo2 from '../../../assets/images/binary-code.png';
 import auth from '@react-native-firebase/auth';
@@ -20,6 +20,18 @@ const MainPage = ({navigation}) => {
       .then(() => navigation.navigate('signin'))
       .catch(error => this.setState({errorMessage: error.message}));
   };
+  var user = auth().currentUser;
+  var name, email, photoUrl, uid, emailVerified;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    photoUrl = user.photoURL;
+    emailVerified = user.emailVerified;
+    uid = user.uid;
+  }
+  console.log(name);
+
   return (
     <View style={styles.view}>
       <Text style={styles.texttitle}>SIBER KAHRAMAN</Text>
