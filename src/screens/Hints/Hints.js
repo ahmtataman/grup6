@@ -10,10 +10,7 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-// import {RewindIcon} from 'react-native-heroicons/outline';
 import React, {useState} from 'react';
-// import CustomButton2 from '../../components/CustomButton2/CustomButton2';
-// import Hint from '../../../assets/images/hint.png';
 import HintPage from '../../../assets/images/sticky-note.png';
 
 import BackButton from '../../../assets/images/back.png';
@@ -35,14 +32,13 @@ const Hints = ({navigation: {navigate}}) => {
     {title: 'Yüklediğiniz fotoğraflarda konum bilgisi olmamasına dikkat edin'},
     {title: '"Şifremi Hatırla" butonuna basmasanız daha iyi olur'},
     {title: 'Kaynağından emin olmadıkça verilen linklere tıklamayınız'},
+    {title: 'Ortak kullanılan cihazlarda hesaplarınızdan utlaka çıkış yapın'},
+    {title: 'Şifresiz ve ortak ağlara bağlanırken dikkatli olun'},
   ]);
 
   return (
     <View>
       <View style={styles.MainContainer}>
-        {/* <RewindIcon color="blue" size={42} /> */}
-        {/* <Image source={Ipuc} style={[styles.logo]} /> */}
-
         <TouchableOpacity
           style={[styles.backbutton]}
           onPress={() => navigate('start')}
@@ -50,7 +46,7 @@ const Hints = ({navigation: {navigate}}) => {
           <Image source={BackButton} style={[styles.backbutton]} />
         </TouchableOpacity>
         <View style={styles.hinter}>
-          <Pressable onPress={'onPress'} style={styles.but}>
+          <Pressable onPress={console.log('first')} style={styles.but}>
             <Text style={styles.text}>İPUÇLARI</Text>
           </Pressable>
         </View>
@@ -61,7 +57,6 @@ const Hints = ({navigation: {navigate}}) => {
         data={textSelect}
         renderItem={({item}) => (
           <TouchableOpacity
-            // style={styles.MainContainer}
             activeOpacity={0.5}
             onPress={() => navigate('hintshow', {title: item.title})}
           >
@@ -77,50 +72,34 @@ const Hints = ({navigation: {navigate}}) => {
 };
 const styles = StyleSheet.create({
   text: {
-    fontSize: 15,
-    fontFamily: 'Anek',
+    fontSize: 25,
+    fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // shadowColor: 'black',
-    // textShadowOffset: { width: 0, height: 1 },
-    // textShadowRadius: 10,
-    // shadowOffset: 1,
   },
   but: {
-    // top: 50,
     padding: 10,
     backgroundColor: '#47A6D7',
-    width: '65%',
+    width: '75%',
     borderRadius: 25,
     alignItems: 'center',
   },
   backbutton: {
-    // left: 20,
-    // bottom: 410,
-    // // position: 'absolute',
     maxWidth: 40,
     maxHeight: 40,
-    // resizeMode: 'contain',
   },
   list: {
     flex: 1,
-    // alignItems: 'center',
   },
   title: {
     position: 'absolute',
-    // top: -72,
-
     fontSize: 22,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
   },
   MainContainer: {
     padding: 20,
-    // top: 120,
-    // flex: ,
     alignItems: 'center',
-    // justifyContent: 'space-around',
     flexDirection: 'row',
-    // flexWrap: 'wrap',
   },
   hinter: {
     position: 'relative',
@@ -129,73 +108,27 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: 'row',
   },
 
   textsize: {
     textAlign: 'center',
     color: 'black',
-    // paddingBottom: 14,
   },
   page: {
     maxWidth: 130,
     maxHeight: 130,
-    // resizeMode: 'contain',
   },
   logo: {
     width: 100,
     height: 100,
-    // top: -150,
-    // left: 15,
-    // position: 'absolute',
-    // maxWidth: 200,
-    // maxHeight: 200,
     resizeMode: 'contain',
-
-    // position: 'absolute',
   },
-  // shadow: {
-  //   shadowColor: 'black',
-  //   shadowOpacity: 0.8,
-  //   elevation: 6,
-  //   backgroundColor: '#0000',
-  //   shadowRadius: 15,
-  //   shadowOffset: {width: 56, height: 13},
-  //   borderWidth: 0,
-  //   borderRadius: 0,
-  //   // elevation: 5,
-  // },
-  // view: {
-  //   // flexDirection: 'column',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   position: 'absolute',
-  // },
   textexit: {
     left: 10,
     fontSize: 15,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
   },
-  // exit: {
-  //   shadowColor: 'black',
-  //   shadowOpacity: 0.8,
-  //   elevation: 6,
-  //   backgroundColor: '#0000',
-  //   shadowRadius: 15,
-  //   shadowOffset: {width: 56, height: 13},
-  //   borderWidth: 0,
-  //   borderRadius: 0,
-  //   position: 'absolute',
-  //   // top: 500,
-
-  //   padding: 10,
-  //   marginHorizontal: 10,
-  //   marginVertical: 20,
-  //   backgroundColor: '#47A6D7',
-  //   width: '30%',
-  //   borderRadius: 25,
-  // },
   container: {
     shadowColor: 'black',
     shadowOpacity: 0.8,
@@ -213,7 +146,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#47A6D7',
     width: '55%',
     borderRadius: 25,
-    // justifyContent: 'center',
   },
 });
 

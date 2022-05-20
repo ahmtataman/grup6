@@ -134,7 +134,7 @@ const Profile = ({navigation}) => {
             </View>
           </TouchableOpacity>
 
-          <Text style={styles.text2}>PROFIL</Text>
+          <Text style={styles.text2}>PROFİL</Text>
           <View style={styles.back}>
             <Text style={styles.profiletext2}>Ad</Text>
             <View
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     top: 10,
     // right: 30,
-    fontFamily: 'Anek',
+    fontFamily: 'Exo2-VariableFont_wght',
     fontSize: 25,
     paddingTop: 10,
     paddingBottom: 10,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     top: 10,
     // right: 30,
-    fontFamily: 'Anek',
+    fontFamily: 'Exo2-VariableFont_wght',
     fontSize: 15,
     color: '#67b2d9',
   },
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
   text2: {
     top: 210,
     right: 130,
-    fontFamily: 'Anek',
+    fontFamily: 'Exo2-VariableFont_wght',
     fontSize: 25,
     color: '#67b2d9',
   },

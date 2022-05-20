@@ -12,10 +12,8 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-// import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import CustomButton from '../../components/CustomButton/CustomButton';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import ImagePicker from 'react-native-image-crop-picker';
 // import Call from './Call.js';
@@ -24,40 +22,6 @@ import storage from '@react-native-firebase/storage';
 export default class Signup extends Component {
   constructor(props) {
     super(props);
-    // this.State = {image2: null};
-    // this.State = {imageProfile: null};
-    // this.State = {URL: null};
-    // this.State = {filename: null};
-    // this.getUser();
-    // state = {
-    // this.App();
-    // };
-
-    // this.subscriber = firestore()
-    //   .collection('person')
-    //   .doc('Elv2gXlGcDu9PpY7vEE4')
-    //   .onSnapshot(doc => {
-    //     this.setState({
-    //       user: {
-    //         name: doc.data().name,
-    //         mail: doc.data().mail,
-    //       },
-    //     });
-    //   });
-    // firestore()
-    //   .collection('person')
-    //   .get()
-    //   .then(querySnapshot => {
-    //     console.log('Total users: ', querySnapshot.size);
-
-    //     querySnapshot.forEach(documentSnapshot => {
-    //       console.log(
-    //         'User ID: ',
-    //         documentSnapshot.id,
-    //         documentSnapshot.data(),
-    //       );
-    //     });
-    //   });
 
     this.state = {
       image2: null,
@@ -66,7 +30,7 @@ export default class Signup extends Component {
       email: '',
       password: '',
       isLoading: false,
-      data: 'ahmet',
+
       user: {
         name: '',
         mail: '',
@@ -74,39 +38,8 @@ export default class Signup extends Component {
       },
     };
   }
-  // App() {
-  //   // Set an initializing state whilst Firebase connects
-  //   const [initializing, setInitializing] = useState(true);
-  //   const [user, setUser] = useState();
 
-  //   // Handle user state changes
-  //   function onAuthStateChanged(user) {
-  //     setUser(user);
-  //     if (initializing) {
-  //       setInitializing(false);
-  //     }
-  //   }
-
-  //   useEffect(() => {
-  //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //     return subscriber; // unsubscribe on unmount
-  //   }, []);
-  //   if (!user) {
-  //     return (
-  //       <View>
-  //         <Text>Login</Text>
-  //       </View>
-  //     );
-  //   }
-  //   if (initializing) {
-  //     return null;
-  //   }
-  //   return (
-  //     <View>
-  //       <Text>Welcome {user.email}</Text>
-  //     </View>
-  //   );
-  // }
+  //verilerin aynı anda firestore db'e yüklenmesi için
   addUser = async () => {
     firestore()
       .collection('person')
@@ -115,21 +48,11 @@ export default class Signup extends Component {
         name: this.state.displayName,
         mail: this.state.email,
         AuthID: this.state.userAuthId,
-        // yas: ,
       });
     // console.log(res.user.uid);
   };
-  // getUser = async () => {
-  //   const userDocument = await firestore()
-  //     .collection('person')
-  //     .doc('Elv2gXlGcDu9PpY7vEE4')
-  //     .get();
-  //   console.log(userDocument);
-  // };
-  // usersCollection = () => {
-  //   const data = firestore().collection('person');
-  //   console.log(data);
-  // };
+
+  //imagePicker ile galeriden profil fotoğrafı çekmek için
   choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -139,37 +62,25 @@ export default class Signup extends Component {
     }).then(imageProfile => {
       console.log(imageProfile.path);
       this.setState({image2: imageProfile.path});
-      // this.setState({image2: this.state.imageProfile.path});
       console.log(this.state.image2);
     });
   };
-  // choosePhotoFromLibrary = () => {
-  //   ImagePicker.openPicker(
-  //     {width: 300, height: 300, cropping: true, compressImageQuality: 0.7},
-  //     res => {
-  //       if (res.didCancel) {
-  //         console.log('User cancelled!');
-  //       } else if (res.error) {
-  //         console.log('Error', res.error);
-  //       } else {
-  //         this.setState({
-  //           image2: {uri: res.path},
-  //         });
-  //       }
-  //     },
-  //   );
-  // };
+
   componentDidMount() {
     this.setState({image2: Image.resolveAssetSource(ProfilePlaceHolder).uri});
     this.setState({
       imageProfile: Image.resolveAssetSource(ProfilePlaceHolder).uri,
     });
   }
+
+  //mail, password değişkenlerini güncelleyerek tutması için
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;
     this.setState(state);
   };
+
+  //firebase Auth email/password ile kullanıcı kaydı
   registerUser = () => {
     if (this.state.email === '' && this.state.password === '') {
       Alert.alert('Kayıt olmak için bilgileri giriniz!');
@@ -183,24 +94,14 @@ export default class Signup extends Component {
         .then(res => {
           res.user.updateProfile({
             displayName: this.state.displayName,
-            // userAuthId: this.state.res.user.uid,
           });
 
-          // console.log(userAuthId);
-          // (this.userAuthId = this.state.res.user.id),
-          // console.log(res.user.uid);
           this.setState({userAuthId: res.user.uid});
-          // console.log(userAuthId);
-          // console.log(res);
+
           console.log('res', res);
+
           console.log('Kayıt Başarılı!');
 
-          // this.setState({
-          //   isLoading: false,
-          //   displayName: '',
-          //   email: '',
-          //   password: '',
-          // });
           this.props.navigation.navigate('signin');
         })
         .then(() => this.addUser())
@@ -209,10 +110,10 @@ export default class Signup extends Component {
         .catch(error => this.setState({errorMessage: error.message}));
     }
   };
+
+  //Profil fotoğrafı firebase cloud storage yüklemesi. User.uid ile.
   uploadImage = async test => {
     console.log(test);
-
-    let filename = 'test';
 
     try {
       await storage()
@@ -224,15 +125,7 @@ export default class Signup extends Component {
     }
   };
 
-  // getdata = () => {
-  //   const data = firestore()
-  //     .collection('person')
-  //     // .where('name', '==', this.state.data)
-  //     .get();
-  //   // this.setState({data: data});
-  //   console.log(data);
-  // };
-
+  //Veritabanı erişimi esnasında gösterdiği loading ekranı
   render() {
     if (this.state.isLoading) {
       return (
@@ -255,8 +148,6 @@ export default class Signup extends Component {
             right: 50,
             opacity: 0.3,
             position: 'absolute',
-            // borderWidth: 0.5,
-            // borderRadius: 500,
           }}
           imageStyle={{borderRadius: 1000}}
         />
@@ -277,26 +168,17 @@ export default class Signup extends Component {
               style={{
                 height: 100,
                 width: 100,
-                // alignItems: 'center',
                 position: 'absolute',
                 top: -40,
                 left: 108,
-                // borderEndWidth: 5,
-                // borderRadius: 50,
-                // borderEndWidth: 20,
-                // borderWidth: 5,
-                // borderBottomWidth: 100,
-
                 elevation: 10,
-                // borderBottomEndRadius: 100,
                 borderRadius: 100,
-                // borderBottomRightRadius: 100,
               }}
               imageStyle={{borderRadius: 1000}}
             />
           </View>
         </TouchableOpacity>
-        {/* <Call /> */}
+
         <Text style={styles.title}>KAYIT </Text>
         <TextInput
           style={styles.inputStyle}
@@ -357,10 +239,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'Anek',
     color: 'white',
-    // shadowColor: 'black',
-    // textShadowOffset: { width: 0, height: 1 },
-    // textShadowRadius: 10,
-    // shadowOffset: 1,
   },
   button: {
     top: 100,
@@ -388,12 +266,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderColor: '#ccc',
     paddingLeft: 15,
-    // borderBottomWidth: 1,
   },
   loginText: {
     color: '#3740FE',
     top: 80,
-    // marginTop: 50,
     textAlign: 'center',
   },
   preloader: {

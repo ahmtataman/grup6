@@ -8,10 +8,8 @@ import {
   ActivityIndicator,
   TextInput,
 } from 'react-native';
-
 import auth from '@react-native-firebase/auth';
 import Logo from '../../../assets/images/hack1.png';
-import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import TextButton from '../../components/TextButton';
 import React, {Component} from 'react';
@@ -67,7 +65,7 @@ export default class Login extends Component {
       <View style={styles.root}>
         <Text style={styles.text}>SIBER KAHRAMAN</Text>
         <Image source={Logo} style={[styles.logo, {height: 250}]} />
-        <Text style={styles.text2}>GIRIS YAP</Text>
+        <Text style={styles.text2}>GİRİŞ YAP</Text>
         <View style={styles.container}>
           <TextInput
             style={[styles.inputStyle, {borderBottomWidth: 0.2}]}
@@ -100,8 +98,6 @@ const styles = StyleSheet.create({
   inputStyle: {
     padding: 10,
     paddingBottom: 10,
-    // margin: 5,
-    // borderBottomWidth: 1,
   },
   container: {
     top: 20,
@@ -116,20 +112,16 @@ const styles = StyleSheet.create({
   },
   text: {
     top: -10,
-
-    // padding: 10,
     fontFamily: 'computer_7',
     fontSize: 40,
-    // left: 45,
   },
   text2: {
     top: 20,
-    fontFamily: 'Anek',
+    fontFamily: 'Exo2-VariableFont_wght',
     fontSize: 25,
     color: '#47A6D7',
   },
   logo: {
-    // padding: 10,
     maxWidth: 400,
     maxHeight: 400,
     resizeMode: 'contain',
@@ -140,8 +132,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
-
-    // top: 70,
-    // position: 'absolute',
   },
 });

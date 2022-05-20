@@ -14,6 +14,8 @@ import auth from '@react-native-firebase/auth';
 
 const MainPage = ({navigation}) => {
   const {height} = useWindowDimensions();
+
+  //Kullanıcının çıkış yapması için func
   const signOut = () => {
     auth()
       .signOut()
@@ -21,6 +23,8 @@ const MainPage = ({navigation}) => {
       .then(() => navigation.navigate('signin'))
       .catch(error => this.setState({errorMessage: error.message}));
   };
+
+  //currentUser verilerini çekmek için
   var user = auth().currentUser;
   var name, email, photoUrl, uid, emailVerified;
 
@@ -47,7 +51,7 @@ const MainPage = ({navigation}) => {
         onPress={() => navigation.navigate('achive')}
         style={styles.container}
       >
-        <Text style={styles.text1}>BAŞARIMLARIM</Text>
+        <Text style={styles.text}>BAŞARIMLARIM</Text>
       </Pressable>
       <Pressable
         onPress={() => navigation.navigate('lider')}
@@ -62,24 +66,21 @@ const MainPage = ({navigation}) => {
             width: 50,
             transform: [{rotate: '-40deg'}],
             position: 'absolute',
-            // elevation: 10,
-            // borderRadius: 20,
-            // rotation: -35,
           }}
         />
-        <Text style={styles.text2}>LİDER TAHTASI</Text>
+        <Text style={styles.text}>LİDER TAHTASI</Text>
       </Pressable>
       <Pressable
         onPress={() => navigation.navigate('profile')}
         style={styles.container}
       >
-        <Text style={styles.text3}>PROFİL</Text>
+        <Text style={styles.text}>PROFİL</Text>
       </Pressable>
       <Pressable
         onPress={() => navigation.navigate('analiz')}
         style={styles.container}
       >
-        <Text style={styles.text4}>ANALİZLERİM</Text>
+        <Text style={styles.text}>ANALİZLERİM</Text>
       </Pressable>
       <Image
         source={Logo2}
@@ -98,12 +99,8 @@ const MainPage = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   texttitle: {
-    // top: -10,
-
-    // padding: 10,
     fontFamily: 'computer_7',
     fontSize: 40,
-    // left: 45,
   },
   logo: {
     top: 10,
@@ -112,12 +109,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   view: {
-    // flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   textexit: {
-    left: 15,
+    textAlign: 'center',
     fontSize: 15,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
@@ -158,47 +154,36 @@ const styles = StyleSheet.create({
     backgroundColor: '#47A6D7',
     width: '55%',
     borderRadius: 25,
-    // justifyContent: 'center',
   },
   text: {
-    left: 67,
+    textAlign: 'center',
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   text1: {
     left: 30,
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   text2: {
     left: 32,
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   text3: {
     left: 65,
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   text4: {
     left: 35,
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 

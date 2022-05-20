@@ -8,8 +8,6 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-
-import CustomButton2 from '../../components/CustomButton2/CustomButton2';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
@@ -76,17 +74,12 @@ const Start = ({navigation}) => {
               right: 120,
               top: -5,
               borderColor: 'black',
-              // borderWidth: 1,
-              // backgroundColor: 'black',
             }}
             imageStyle={{borderRadius: 1000}}
           />
 
           <Text
             style={{
-              // elevation: 10,
-              // borderRadius: 50,
-              // backgroundColor: 'white',
               fontFamily: 'Exo2-VariableFont_wght',
               position: 'absolute',
               fontSize: 20,
@@ -102,9 +95,6 @@ const Start = ({navigation}) => {
           <Text
             style={{
               paddingHorizontal: 10,
-              // elevation: 1,
-              // borderRadius: 10,
-              // backgroundColor: 'white',
               fontFamily: 'Exo2-VariableFont_wght',
               position: 'absolute',
               color: 'black',
@@ -128,13 +118,13 @@ const Start = ({navigation}) => {
         onPress={() => navigation.navigate('main')}
         style={styles.container}
       >
-        <Text style={styles.text1}>ONLINE OYUNLAR</Text>
+        <Text style={styles.text}>ONLINE OYUNLAR</Text>
       </Pressable>
       <Pressable
         onPress={() => navigation.navigate('hint')}
         style={styles.container}
       >
-        <Text style={styles.text2}>İPUÇLARI</Text>
+        <Text style={styles.text}>İPUÇLARI</Text>
       </Pressable>
 
       <Pressable
@@ -148,15 +138,13 @@ const Start = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   view: {
-    // flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'center',
     backgroundColor: '#F1F9FF',
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
   },
   textexit: {
-    left: 10,
+    textAlign: 'center',
     fontSize: 15,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
@@ -170,9 +158,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 56, height: 13},
     borderWidth: 0,
     borderRadius: 0,
-
     top: 300,
-
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 20,
@@ -190,38 +176,18 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 0,
     top: 190,
-
     padding: 15,
     marginHorizontal: 10,
     marginVertical: 20,
     backgroundColor: '#47A6D7',
     width: '55%',
     borderRadius: 25,
-    // justifyContent: 'center',
   },
   text: {
-    left: 25,
+    textAlign: 'center',
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-  text1: {
-    left: 18,
-    fontSize: 20,
-    fontFamily: 'Exo2-VariableFont_wght',
-    color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-  text2: {
-    left: 50,
-    fontSize: 20,
-    fontFamily: 'Exo2-VariableFont_wght',
-    color: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 

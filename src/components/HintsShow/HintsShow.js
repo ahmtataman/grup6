@@ -18,21 +18,14 @@ import BackButton from '../../../assets/images/back.png';
 
 const Hints = ({route: {params}, navigation}) => {
   const {height} = useWindowDimensions();
-  // const [textSelect, setTextSelect] = useState([
-  //   {title: 'deneme1'},
-  //   {title: 'deneme2'},
-  // ]);
   const {title} = params;
+
   return (
     <View style={styles.MainContainer}>
       <Image source={Hint} style={[styles.logo, {height: height * 0.25}]} />
       <Text style={styles.title}>İPUÇLARI</Text>
 
-      <TouchableOpacity
-        style={styles.page}
-        activeOpacity={0.5}
-        // onPress={() => navigation.navigate('hint')}
-      >
+      <TouchableOpacity style={styles.page} activeOpacity={0.5}>
         <Image
           source={HintPage}
           style={[styles.page, {height: height * 0.58}]}
@@ -46,7 +39,6 @@ const Hints = ({route: {params}, navigation}) => {
 };
 const styles = StyleSheet.create({
   HintPage: {
-    // padding: 20,
     marginLeft: 10,
     marginRight: 10,
   },
@@ -67,7 +59,6 @@ const styles = StyleSheet.create({
 
   textsize: {
     top: -330,
-    // right: 110,
     fontSize: 35,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
@@ -84,26 +75,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logo: {
-    // top: 15,
-    // left: 15,
-
     maxWidth: 200,
     maxHeight: 200,
     resizeMode: 'contain',
   },
-  // shadow: {
-  //   shadowColor: 'black',
-  //   shadowOpacity: 0.8,
-  //   elevation: 6,
-  //   backgroundColor: '#0000',
-  //   shadowRadius: 15,
-  //   shadowOffset: {width: 56, height: 13},
-  //   borderWidth: 0,
-  //   borderRadius: 0,
-  //   // elevation: 5,
-  // },
   view: {
-    // flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -150,7 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#47A6D7',
     width: '55%',
     borderRadius: 25,
-    // justifyContent: 'center',
   },
 });
 export default Hints;
