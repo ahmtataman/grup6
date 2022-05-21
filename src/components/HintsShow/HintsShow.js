@@ -2,23 +2,52 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   Image,
   useWindowDimensions,
   TouchableOpacity,
-  Button,
-  FlatList,
-  ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
-import CustomButton2 from '../../components/CustomButton2/CustomButton2';
+import React, {useState, useEffect, setState} from 'react';
 import Hint from '../../../assets/images/hint.png';
 import HintPage from '../../../assets/images/sticky-note.png';
-import BackButton from '../../../assets/images/back.png';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const Hints = ({route: {params}, navigation}) => {
   const {height} = useWindowDimensions();
   const {title} = params;
+  var user = auth().currentUser;
+  var name, email, uid, emailVerified, hintCount;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    emailVerified = user.emailVerified;
+    uid = user.uid;
+  } else {
+    console.log('no user');
+  }
+
+  //Her ipucuna tıklandığında db üzerindeki veriyi arttırmak için
+  useEffect(() => {
+    const updateHintCount = async () => {
+      const postReference = firestore().doc(`person/${user.uid}`);
+      firestore().runTransaction(async transaction => {
+        // person içinden verileri çekmek için
+        const postSnapshot = await transaction.get(postReference);
+
+        if (!postSnapshot.exists) {
+          throw 'Kayıt yok!';
+        }
+
+        transaction.update(postReference, {
+          hintViewCount: postSnapshot.data().hintViewCount + 1,
+        });
+        // console.log(hintViewCount);
+      });
+    };
+
+    updateHintCount();
+  }, []);
 
   return (
     <View style={styles.MainContainer}>

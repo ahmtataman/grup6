@@ -34,12 +34,17 @@ export default class Signup extends Component {
       user: {
         name: '',
         mail: '',
-        AuthId: '',
+        AuthId: '', //auth user.uid ile birlikte db girişi yapılması için
+        starCount: '', //Testlerden toplamda kaç yıldız topladığı, yıldız sayısına göre lider tahtası
+        averageTestTime: '', //Testler esnasında geçirdiği süre
+        testCount: '', //Kaç test bitirdiği
+        hintViewCount: '', //Kaç ipucu okuduğu
+        dailySignInCount: '', //Günde kaç kere giriş yaptığı
       },
     };
   }
 
-  //verilerin aynı anda firestore db'e yüklenmesi için
+  //verilerin aynı anda firestore db'e yüklemek ve gerektiğinde çekmek için
   addUser = async () => {
     firestore()
       .collection('person')
@@ -48,6 +53,11 @@ export default class Signup extends Component {
         name: this.state.displayName,
         mail: this.state.email,
         AuthID: this.state.userAuthId,
+        starCount: 0,
+        averageTestTime: 0,
+        testCount: 0,
+        hintViewCount: 0,
+        dailySignInCount: 0,
       });
     // console.log(res.user.uid);
   };

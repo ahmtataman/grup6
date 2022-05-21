@@ -13,15 +13,21 @@ import storage from '@react-native-firebase/storage';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import React, {useState, useEffect} from 'react';
 import King from '../../../assets/images/king.png';
+import firestore from '@react-native-firebase/firestore';
 
 const LeaderBoard = ({navigation}) => {
   //Profil resmi için placeholder
   const ImageUri = Image.resolveAssetSource(ProfilePlaceHolder).uri;
   const [image, setImage] = useState(ImageUri);
+  const [LeaderArray, setLeaderArray] = useState([]);
 
+  // let LeaderArray = ['1', '2'];
   //currentUser bilgilerini dbden çekmek için
   var user = auth().currentUser;
   var name, email, photoUrl, uid, emailVerified;
+  var arrayNames = '';
+  var string = 'ahmet';
+  // LeaderArray.push(string);
 
   if (user != null) {
     name = user.displayName;
@@ -33,8 +39,36 @@ const LeaderBoard = ({navigation}) => {
 
   // console.log(name);
 
-  //fonksiyon lifecycle, profil fotoğrafını user.uid ile eşleştirerek
-  //cloud storagedan çekmek için
+  //fonksiyon lifecycle, başta tüm dökümandaki kullanıcıların
+  //yıldız sayılarına göre azalan şeklinde sıralıyor.
+  //daha sonra sırası ile array içine yerleştiriyor.
+  //Yerleştirilen elemanları sırasına göre lider tahtasına yazdırmak için
+  const clearArray = () => {
+    setLeaderArray([]);
+  };
+  useEffect(() => {
+    const getQuery = async () => {
+      firestore()
+        .collection('person')
+        .orderBy('starCount', 'desc') //çoktan aza doğru sıralaması için
+        .limit(5) //sadece ilk 5 entry yi getirmesi için
+        .get()
+        .then(querySnapshot => {
+          console.log('Total users: ', querySnapshot.size);
+
+          querySnapshot.forEach(documentSnapshot => {
+            // console.log('User Names: ', documentSnapshot.data().name);
+            LeaderArray.push(documentSnapshot.data().name);
+          });
+        });
+    };
+
+    getQuery();
+  }, []);
+
+  console.log(LeaderArray);
+  console.log(LeaderArray[0]);
+
   useEffect(() => {
     const urlGetFunc = async () => {
       const urlDownload = await storage()
@@ -127,17 +161,6 @@ const LeaderBoard = ({navigation}) => {
           onPress={() => navigation.navigate('lider')}
           style={styles.container2}
         >
-          {/* <Image
-            source={King}
-            style={{
-              bottom: 50,
-              left: 90,
-              height: 80,
-              width: 80,
-              // transform: [{rotate: '-40deg'}],
-              position: 'absolute',
-            }}
-          /> */}
           <Text style={styles.text2}>LİDER TAHTASI</Text>
         </Pressable>
         <View style={{flexDirection: 'row'}}>
@@ -147,7 +170,7 @@ const LeaderBoard = ({navigation}) => {
             onPress={() => navigation.navigate('start')}
             style={styles.container}
           >
-            <Text style={styles.text}>placeholder</Text>
+            <Text style={styles.text}>{LeaderArray[0]}</Text>
           </Pressable>
           <Image
             source={King}
@@ -170,7 +193,7 @@ const LeaderBoard = ({navigation}) => {
             onPress={() => navigation.navigate('achive')}
             style={styles.container}
           >
-            <Text style={styles.text}>placeholder</Text>
+            <Text style={styles.text}>{LeaderArray[1]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -179,7 +202,7 @@ const LeaderBoard = ({navigation}) => {
             onPress={() => navigation.navigate('lider')}
             style={styles.container}
           >
-            <Text style={styles.text}>placeholder</Text>
+            <Text style={styles.text}>{LeaderArray[2]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -188,7 +211,7 @@ const LeaderBoard = ({navigation}) => {
             onPress={() => navigation.navigate('profile')}
             style={styles.container}
           >
-            <Text style={styles.text}>placeholder</Text>
+            <Text style={styles.text}>{LeaderArray[3]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -197,12 +220,15 @@ const LeaderBoard = ({navigation}) => {
             onPress={() => navigation.navigate('analiz')}
             style={styles.container}
           >
-            <Text style={styles.text}>placeholder</Text>
+            <Text style={styles.text}>{LeaderArray[4]}</Text>
           </Pressable>
         </View>
 
         <Pressable
-          onPress={() => navigation.navigate('main')}
+          onPress={() => {
+            navigation.navigate('main');
+            clearArray();
+          }}
           style={styles.exit}
         >
           <Text style={styles.textexit}>ANA MENÜ</Text>
