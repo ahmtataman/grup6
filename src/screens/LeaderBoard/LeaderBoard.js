@@ -161,6 +161,20 @@ const LeaderBoard = ({navigation}) => {
           onPress={() => navigation.navigate('lider')}
           style={styles.container2}
         >
+          <Image
+            source={King}
+            style={{
+              bottom: 41,
+              left: 175,
+              height: 80,
+              width: 80,
+              transform: [{rotate: '15deg'}],
+              position: 'absolute',
+              // elevation: 10,
+              // borderRadius: 20,
+              // rotation: -35,
+            }}
+          />
           <Text style={styles.text2}>LİDER TAHTASI</Text>
         </Pressable>
         <View style={{flexDirection: 'row'}}>
@@ -285,7 +299,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 0,
 
-    top: 30,
+    top: 60,
 
     padding: 10,
     marginHorizontal: 10,
@@ -311,8 +325,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   container2: {
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
     elevation: 6,
 
     borderWidth: 0,
