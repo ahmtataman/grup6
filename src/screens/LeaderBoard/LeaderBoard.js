@@ -13,6 +13,7 @@ import storage from '@react-native-firebase/storage';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import React, {useState, useEffect} from 'react';
 import King from '../../../assets/images/king.png';
+import Head from '../../../assets/images/halo.png';
 import firestore from '@react-native-firebase/firestore';
 
 const LeaderBoard = ({navigation}) => {
@@ -39,13 +40,15 @@ const LeaderBoard = ({navigation}) => {
 
   // console.log(name);
 
+  //Arrayi her sayfadan çıkıldığında temizlemesi için
+  const clearArray = () => {
+    setLeaderArray([]);
+  };
+
   //fonksiyon lifecycle, başta tüm dökümandaki kullanıcıların
   //yıldız sayılarına göre azalan şeklinde sıralıyor.
   //daha sonra sırası ile array içine yerleştiriyor.
   //Yerleştirilen elemanları sırasına göre lider tahtasına yazdırmak için
-  const clearArray = () => {
-    setLeaderArray([]);
-  };
   useEffect(() => {
     const getQuery = async () => {
       firestore()
@@ -69,6 +72,7 @@ const LeaderBoard = ({navigation}) => {
   console.log(LeaderArray);
   console.log(LeaderArray[0]);
 
+  //Profil fotoğrafını dbden çekmek için
   useEffect(() => {
     const urlGetFunc = async () => {
       const urlDownload = await storage()
@@ -157,31 +161,19 @@ const LeaderBoard = ({navigation}) => {
       </View>
 
       <View style={styles.view}>
+        <View />
+        <Image source={Head} style={styles.halo} />
         <Pressable
           onPress={() => navigation.navigate('lider')}
           style={styles.container2}
         >
-          <Image
-            source={King}
-            style={{
-              bottom: 41,
-              left: 175,
-              height: 80,
-              width: 80,
-              transform: [{rotate: '15deg'}],
-              position: 'absolute',
-              // elevation: 10,
-              // borderRadius: 20,
-              // rotation: -35,
-            }}
-          />
           <Text style={styles.text2}>LİDER TAHTASI</Text>
         </Pressable>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.number}>1.</Text>
 
           <Pressable
-            onPress={() => navigation.navigate('start')}
+            onPress={() => navigation.navigate('profile')}
             style={styles.container}
           >
             <Text style={styles.text}>{LeaderArray[0]}</Text>
@@ -195,45 +187,30 @@ const LeaderBoard = ({navigation}) => {
               width: 50,
               transform: [{rotate: '-40deg'}],
               position: 'absolute',
-              // elevation: 10,
-              // borderRadius: 20,
-              // rotation: -35,
             }}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.number}>2.</Text>
-          <Pressable
-            onPress={() => navigation.navigate('achive')}
-            style={styles.container}
-          >
+          <Pressable onPress={console.log('2')} style={styles.container}>
             <Text style={styles.text}>{LeaderArray[1]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.number}>3.</Text>
-          <Pressable
-            onPress={() => navigation.navigate('lider')}
-            style={styles.container}
-          >
+          <Pressable onPress={console.log('3')} style={styles.container}>
             <Text style={styles.text}>{LeaderArray[2]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.number}>4.</Text>
-          <Pressable
-            onPress={() => navigation.navigate('profile')}
-            style={styles.container}
-          >
+          <Pressable onPress={console.log('4')} style={styles.container}>
             <Text style={styles.text}>{LeaderArray[3]}</Text>
           </Pressable>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.number}>5.</Text>
-          <Pressable
-            onPress={() => navigation.navigate('analiz')}
-            style={styles.container}
-          >
+          <Pressable onPress={console.log('5')} style={styles.container}>
             <Text style={styles.text}>{LeaderArray[4]}</Text>
           </Pressable>
         </View>
@@ -252,6 +229,12 @@ const LeaderBoard = ({navigation}) => {
   );
 };
 const styles = StyleSheet.create({
+  halo: {
+    position: 'absolute',
+    top: -40,
+    height: 110,
+    width: 150,
+  },
   number: {
     paddingRight: 10,
     alignItems: 'center',
@@ -263,10 +246,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 10,
-    backgroundColor: '#47A6D7',
+    backgroundColor: 'white',
     width: '10%',
     borderRadius: 25,
-    color: 'white',
+    color: '#47A6D7',
     fontSize: 20,
     fontFamily: 'Exo2-VariableFont_wght',
   },
@@ -292,8 +275,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   exit: {
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
     elevation: 6,
 
     borderWidth: 0,
@@ -325,6 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   container2: {
+    position: 'relative',
     elevation: 6,
 
     borderWidth: 0,
