@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    fontFamily: 'Anek',
+    fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',
     // shadowColor: 'black',
     // textShadowOffset: { width: 0, height: 1 },

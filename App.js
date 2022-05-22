@@ -13,6 +13,8 @@ import Profile from './src/screens/Profile';
 import HintsShow from './src/components/HintsShow';
 import Ready from './src/screens/Ready';
 import Test from './src/screens/Test';
+import Map1 from './src/screens/Map1';
+import Map2 from './src/screens/Map2';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,6 +81,16 @@ function App() {
         <Stack.Screen
           name="test"
           component={Test}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="map1"
+          component={Map1}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="map2"
+          component={Map2}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

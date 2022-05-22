@@ -109,13 +109,13 @@ const Start = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Pressable
-        onPress={() => navigation.navigate('test')}
+        onPress={() => navigation.navigate('map1')}
         style={styles.container}
       >
         <Text style={styles.text}>SOSYAL MEDYA</Text>
       </Pressable>
       <Pressable
-        onPress={() => navigation.navigate('main')}
+        onPress={() => navigation.navigate('map2')}
         style={styles.container}
       >
         <Text style={styles.text}>ONLINE OYUNLAR</Text>
