@@ -5,14 +5,14 @@ import {
   Image,
   useWindowDimensions,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import React, {useState, useEffect, setState} from 'react';
-import Hint from '../../../assets/images/hint.png';
 import HintPage from '../../../assets/images/sticky-note.png';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-const Hints = ({route: {params}, navigation}) => {
+const Hints = ({route: {params}}) => {
   const {height} = useWindowDimensions();
   const {title} = params;
   var user = auth().currentUser;
@@ -51,13 +51,16 @@ const Hints = ({route: {params}, navigation}) => {
 
   return (
     <View style={styles.MainContainer}>
-      <Image source={Hint} style={[styles.logo, {height: height * 0.25}]} />
-      <Text style={styles.title}>İPUÇLARI</Text>
+      <View style={styles.hinter}>
+        <Pressable onPress={console.log('first')} style={styles.but}>
+          <Text style={styles.texttop}>İPUÇLARI</Text>
+        </Pressable>
+      </View>
 
       <TouchableOpacity style={styles.page} activeOpacity={0.5}>
         <Image
           source={HintPage}
-          style={[styles.page, {height: height * 0.58}]}
+          style={[styles.page, {height: height * 0.58}, {top: 50}]}
         />
         <View style={styles.HintPage}>
           <Text style={styles.textsize}>{title}</Text>
@@ -67,6 +70,26 @@ const Hints = ({route: {params}, navigation}) => {
   );
 };
 const styles = StyleSheet.create({
+  but: {
+    padding: 10,
+    backgroundColor: '#47A6D7',
+    width: '75%',
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  texttop: {
+    fontSize: 25,
+    fontFamily: 'Exo2-VariableFont_wght',
+    color: 'white',
+  },
+  hinter: {
+    position: 'relative',
+    display: 'flex',
+    minWidth: '70%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   HintPage: {
     marginLeft: 10,
     marginRight: 10,
@@ -84,10 +107,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    padding: 20,
   },
 
   textsize: {
-    top: -330,
+    top: -230,
     fontSize: 35,
     fontFamily: 'Exo2-VariableFont_wght',
     color: 'white',

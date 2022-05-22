@@ -109,7 +109,7 @@ const Start = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <Pressable
-        onPress={() => navigation.navigate('main')}
+        onPress={() => navigation.navigate('test')}
         style={styles.container}
       >
         <Text style={styles.text}>SOSYAL MEDYA</Text>
@@ -150,12 +150,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   exit: {
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
     elevation: 6,
-    backgroundColor: '#0000',
-    shadowRadius: 15,
-    shadowOffset: {width: 56, height: 13},
     borderWidth: 0,
     borderRadius: 0,
     top: 300,
@@ -167,12 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   container: {
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
     elevation: 6,
-    backgroundColor: '#0000',
-    shadowRadius: 15,
-    shadowOffset: {width: 56, height: 13},
     borderWidth: 0,
     borderRadius: 0,
     top: 190,

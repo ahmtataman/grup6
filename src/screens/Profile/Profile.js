@@ -12,13 +12,8 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
-import CustomInput from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton/CustomButton';
-import TextButton from '../../components/TextButton';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
-import {utils} from '@react-native-firebase/app';
-import {Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 

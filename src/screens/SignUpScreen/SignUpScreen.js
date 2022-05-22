@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   Alert,
   ActivityIndicator,
   Pressable,
@@ -16,7 +15,6 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import ImagePicker from 'react-native-image-crop-picker';
-// import Call from './Call.js';
 import storage from '@react-native-firebase/storage';
 
 export default class Signup extends Component {

@@ -23,11 +23,15 @@ export default class Login extends Component {
       isLoading: false,
     };
   }
+
+  //mail/pass value değişiklikleri için state
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;
     this.setState(state);
   };
+
+  //Firebase auth ile kullanıcı girişi
   userLogin = () => {
     if (this.state.email === '' && this.state.password === '') {
       Alert.alert('Giriş yapmak için bilgileri giriniz!');
@@ -52,6 +56,7 @@ export default class Login extends Component {
     }
   };
 
+  //Giriş yapılırken renderlanan indicator
   render() {
     // const {height} = useWindowDimensions();
     if (this.state.isLoading) {

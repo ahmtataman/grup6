@@ -30,7 +30,7 @@ const Hints = ({navigation: {navigate}}) => {
     {title: 'Kaynağını bilmediğiniz e-postaları açmayınız'},
     {title: 'Sosyal ağlarda kişisel bilgileri paylaşmayın'},
     {title: 'Yüklediğiniz fotoğraflarda konum bilgisi olmamasına dikkat edin'},
-    {title: '"Şifremi Hatırla" butonuna basmasanız daha iyi olur'},
+    {title: 'Şifremi Hatırla" butonuna basmasanız daha iyi olur'},
     {title: 'Kaynağından emin olmadıkça verilen linklere tıklamayınız'},
     {title: 'Ortak kullanılan cihazlarda hesaplarınızdan utlaka çıkış yapın'},
     {title: 'Şifresiz ve ortak ağlara bağlanırken dikkatli olun'},

@@ -13,24 +13,13 @@ import storage from '@react-native-firebase/storage';
 import ProfilePlaceHolder from '../../../assets/images/profile_empty.png';
 import React, {useState, useEffect} from 'react';
 import Star from '../../../assets/images/star.png';
-import Badge from '../../../assets/images/badge.png';
 import Bar from '../../../assets/images/bar2.png';
 import Test from '../../../assets/images/test.png';
-import BadgeBlack from '../../../assets/images/BadgeBlack.png';
 import firestore from '@react-native-firebase/firestore';
 
 const Analyze = ({navigation}) => {
   const placeHolderUrl = Image.resolveAssetSource(ProfilePlaceHolder).uri;
   const [profileImage, setProfileImage] = useState(placeHolderUrl);
-
-  const stateBadge = Image.resolveAssetSource(BadgeBlack).uri;
-  const [SignCount, setSignCount] = useState();
-  const [badgeSign, setBadgeSign] = useState(stateBadge);
-  const [badgeTime, setBadgeTime] = useState(stateBadge);
-  const [badgeTestCount, setBadgeTestCount] = useState(stateBadge);
-  const [badgeMaster, setBadgeMaster] = useState(stateBadge);
-  const [badgeHint, setBadgeHint] = useState(stateBadge);
-  const [badgeEnd, setBadgeEnd] = useState(stateBadge);
   const [starCountLatest, setStarCountLatest] = useState();
   const [testCountLatest, setTestCountLatest] = useState();
 
@@ -91,24 +80,6 @@ const Analyze = ({navigation}) => {
     };
 
     getHintViewCount();
-  }, []);
-
-  //Testlerde ortalama ne kadar süre harcadığı
-  useEffect(() => {
-    const getAverageTime = async () => {
-      firestore()
-        .collection('person')
-        .doc(user.uid)
-        .get()
-        .then(documentSnapshot => {
-          console.log('AverageTime:', documentSnapshot.data().averageTestTime);
-          if (documentSnapshot.data().averageTestTime < 10) {
-            setBadgeTime(Image.resolveAssetSource(Badge).uri);
-          }
-        });
-    };
-
-    getAverageTime();
   }, []);
 
   //Profil Fotoğrafı dbden
@@ -216,7 +187,10 @@ const Analyze = ({navigation}) => {
           Çalışma süren
         </Text>
 
-        <Text style={[styles.exp, {top: 160}, {fontSize: 50}]}> 00:00:00 </Text>
+        <Text style={[styles.exp, {top: 160}, {fontSize: 50}]}>
+          {/* placeholder */}
+          00:00:00{' '}
+        </Text>
       </View>
 
       <View style={styles.back}>
